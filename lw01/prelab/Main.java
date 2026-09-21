@@ -1,31 +1,27 @@
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.util.ArrayList;
+package lw01.prelab; 
 import java.util.List;
+import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Main {
+
     public static void main(String[] args) {
         List<PrintJob> jobs = new ArrayList<>();
-
-        try (Scanner scanner = new Scanner(new File("jobs.txt"))) {
-            while (scanner.hasNext()) {
-                String type = scanner.next();
-                String id = scanner.next();
-                int pages = scanner.nextInt();
-
-                if (type.equals("MONO")) {
-                    jobs.add(new MonoPrint(id, pages));
-                } else if (type.equals("COLOUR")) {
-                    jobs.add(new ColourPrint(id, pages));
-                }
+        
+        Scanner sc = new Scanner(Main.class.getResourceAsStream("jobs.txt"));
+        while (sc.hasNext()) {
+            String type = sc.next();
+            String id = sc.next();
+            int pages = sc.nextInt();
+                
+            if (type.equals("MONO")) {
+                jobs.add(new MonoPrint(id, pages));
+            } else if (type.equals("COLOUR")) {
+                jobs.add(new ColourPrint(id, pages));
             }
-        } catch (FileNotFoundException e) {
-            System.out.println("jobs.txt not found: " + e.getMessage());
-            return;
         }
-
-        for (PrintJob job : jobs) {
+        
+        for(PrintJob job : jobs) {
             System.out.println(job.summary());
         }
     }
