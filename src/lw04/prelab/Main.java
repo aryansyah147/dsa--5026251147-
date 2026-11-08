@@ -42,18 +42,20 @@ public class Main {
 
     }
 
-    static void insertionSort(int[]branches, int passes) {
-        for (int i=1; i<= passes; i++) {
-            int key = branches[i];
-            int j = i-1;
-
-            while(j>=0 && branches[j] > key) {
-                branches[j+1] = branches[j];
-                j = j-1;
+    static void insertionSort(int[] branches, int passes) {
+    for (int p = 1; p <= passes; p++) {
+        int temp = branches[p];
+        boolean stop = false;
+        for (int i = p - 1; i >= 0 && !stop; i--) {
+            if (branches[i] < temp) {
+                branches[i + 1] = branches[i];
+                branches[i] = temp;
+            } else {
+                stop = true;
             }
-            branches[j+1] = key;
         }
     }
+}
 
     static int linearSearch(int[] branches, int target) {
         for (int i=0; i<branches.length; i++) {
